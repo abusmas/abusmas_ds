@@ -1,0 +1,46 @@
+import pandas as pd
+import numpy as np
+import glob
+import os
+
+# date object of today's date
+from datetime import date
+ 
+
+os.getcwd()
+os.chdir('C:\\Users\\jabusmas\\Desktop\\Python Project')
+
+#ENTER Week number,Month number HERE********************
+Weeknum = 2
+Monthnumber = 12
+Report_type = "special*.xlsx"
+Report_output_name = 'special_ALL.xlsx'
+
+#*******************************************
+
+all_data = pd.DataFrame()
+
+
+for f in glob.glob(Report_type):
+    df = pd.read_excel(f)
+    all_data = all_data.append(df,ignore_index=True)
+
+
+#append month number
+
+all_data['mymonth'] = pd.DatetimeIndex(all_data['Date']).month
+
+
+
+filtered1 = all_data["Week #"] == Weeknum
+filtered2 = all_data.mymonth == Monthnumber
+filtered_combined = all_data[filtered1 & filtered2]
+filtered_combined = filtered_combined.drop('mymonth',1)
+
+# Create a Pandas Excel writer using XlsxWriter as the engine.
+writer = pd.ExcelWriter(Report_output_name, engine='xlsxwriter')
+
+# Convert the dataframe to an XlsxWriter Excel object.
+filtered_combined.to_excel(writer,sheet_name='Sheet1')
+
+writer.save()
