@@ -1,0 +1,34 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+dataset = pd.read_csv("name_of_file.csv")
+X = dataset.iloc[].values
+y = dataset.iloc[].values
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+labelencoder_X = LabelEncoder()
+X[] = labelEncoder_X.fit_transform(X[])
+onehotencoder = OneHotEncoder(categorical features = [])
+X = onehotencoder.fit_transform(X).toarray()
+
+#avoiding dummy variable trap
+X = X[:]
+
+
+from sklearn.cross validation import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y text_size = 0.2, random_state = 0)
+
+from sklear.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train,y_train)
+
+y_pred = regressor.predict(x_test)
+
+plt.scatter(X_train, y_train, color = 'red')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.title ('test only lin reg')
+plt.xlabel( 'x axis')
+plt.ylabel( 'y axis')
+plt.show()
